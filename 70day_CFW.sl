@@ -82,13 +82,12 @@ o.set_config('drift:horizontal_diffusivity',Kxy) # using new config rather than 
 
 o.set_config('drift:advection_scheme', 'runge-kutta4')
 
-z = -np.random.rand(28000)*100
+z = -np.random.rand(28000)*100 #randomize depth of all particles from seafloor to ocean surface
 
 o.seed_elements( lon = 171.4632, lat = -41.7469, 
                  number=28000, z = z ,
-                 radius = 2000,
-                 terminal_velocity = -0.001, # setting a large settling velocity on purpose to make seafloor contacts
-                 time = [reader0.start_time, reader0.start_time+timedelta(days=28)],
+                 radius = 2000, #meters
+                 time = [reader0.start_time, reader0.start_time+timedelta(days=28)], #particles are released across the first 28 days of the month
                  origin_marker=10) #CFW
                  
 
@@ -98,7 +97,7 @@ o.set_config('biology:min_settlement_age_seconds', 34*86400)
 o.set_config('biology:max_settlement_depth', -40)
 o.set_config('biology:mortality_daily_rate', 0.15)
 o.set_config('drift:max_age_seconds', 70*86400)
-o.set_config('biology:heavy_terminal_velocity', -0.0025)
+o.set_config('biology:heavy_terminal_velocity', -0.0025) #m/s
 print(o)
 
 start_lon = o.elements_scheduled.lon
